@@ -593,7 +593,7 @@ public class JsonRpcBasicServer {
 
 		//response.put(JSONRPC, jsonRpc);
 
-		if(result != null && !result.isNull()){
+		if(result != null && !result.isNull() && !result.asText().equalsIgnoreCase("") && !result.asText().equalsIgnoreCase("null")){
             response = mapper.createObjectNode();
 			/*if (Integer.class.isInstance(id)) {
 				response.put(ID, Integer.class.cast(id).intValue());
