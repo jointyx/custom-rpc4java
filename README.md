@@ -1,3 +1,14 @@
+
+This project is a fork of [jsonrpc4j](https://github.com/briandilley/jsonrpc4j) with personal code adjustments. 
+The following description is copied from its original source. All credits goes to its original developer.
+===============
+
+To add it to your project use Jitpack
+
+[![](https://jitpack.io/v/jointyx/custom-rpc4java.svg)](https://jitpack.io/#jointyx/custom-rpc4java)
+
+
+
 # JSON-RPC for Java
 
 This project aims to provide the facility to easily implement
