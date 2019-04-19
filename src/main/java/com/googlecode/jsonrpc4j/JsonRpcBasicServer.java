@@ -593,7 +593,8 @@ public class JsonRpcBasicServer {
 
 		//response.put(JSONRPC, jsonRpc);
 
-		if(result != null && !result.isNull() && !result.asText().equalsIgnoreCase("") && !result.asText().equalsIgnoreCase("null")){
+		if(result != null && !result.isNull()){
+		    logger.debug("Result is not null.");
             response = mapper.createObjectNode();
 			/*if (Integer.class.isInstance(id)) {
 				response.put(ID, Integer.class.cast(id).intValue());
@@ -873,11 +874,13 @@ public class JsonRpcBasicServer {
 	private void writeAndFlushValue(OutputStream output, ObjectNode value) throws IOException {
 		logger.debug("Response: {}", value);
 
-		for (JsonRpcInterceptor interceptor : interceptorList) {
-			interceptor.postHandleJson(value);
-		}
-		mapper.writeValue(new NoCloseOutputStream(output), value);
-		output.write('\n');
+		if(value != null){
+            for (JsonRpcInterceptor interceptor : interceptorList) {
+                interceptor.postHandleJson(value);
+            }
+            mapper.writeValue(new NoCloseOutputStream(output), value);
+            output.write('\n');
+        }
 	}
 	
 	private Object parseId(JsonNode node) {
