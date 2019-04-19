@@ -589,12 +589,13 @@ public class JsonRpcBasicServer {
 	 * @return the response object
 	 */
 	private ObjectNode createResponseSuccess(String jsonRpc, Object id, JsonNode result) {
-		ObjectNode response = mapper.createObjectNode();
+		ObjectNode response = null;
 
 		//response.put(JSONRPC, jsonRpc);
 
 		if(result != null && !result.isNull()){
-			if (Integer.class.isInstance(id)) {
+            response = mapper.createObjectNode();
+			/*if (Integer.class.isInstance(id)) {
 				response.put(ID, Integer.class.cast(id).intValue());
 			} else if (Long.class.isInstance(id)) {
 				response.put(ID, Long.class.cast(id).longValue());
@@ -606,7 +607,7 @@ public class JsonRpcBasicServer {
 				response.put(ID, BigDecimal.class.cast(id));
 			} else {
 				response.put(ID, String.class.cast(id));
-			}
+			}*/
 			response.set(RESULT, result);
 		}
 		return response;
