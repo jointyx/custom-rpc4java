@@ -1,7 +1,6 @@
 ### Java template
 # Mobile Tools for Java (J2ME)
 # Package Files #
-*.jar
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 ### NetBeans template
 build/
