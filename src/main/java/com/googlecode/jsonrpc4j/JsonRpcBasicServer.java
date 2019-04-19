@@ -554,13 +554,15 @@ public class JsonRpcBasicServer {
 	 */
 	private ErrorObjectWithJsonError createResponseError(String jsonRpc, Object id, JsonError errorObject) {
 		ObjectNode response = mapper.createObjectNode();
-		ObjectNode error = mapper.createObjectNode();
+
+		/*ObjectNode error = mapper.createObjectNode();
 		error.put(ERROR_CODE, errorObject.code);
 		error.put(ERROR_MESSAGE, errorObject.message);
 		if (errorObject.data != null) {
 			error.set(DATA, mapper.valueToTree(errorObject.data));
 		}
-		response.put(JSONRPC, jsonRpc);
+		response.put(JSONRPC, jsonRpc);*/
+
 		if (Integer.class.isInstance(id)) {
 			response.put(ID, Integer.class.cast(id).intValue());
 		} else if (Long.class.isInstance(id)) {
@@ -574,7 +576,7 @@ public class JsonRpcBasicServer {
 		} else {
 			response.put(ID, String.class.cast(id));
 		}
-		response.set(ERROR, error);
+		response.put(ERROR, errorObject.message);
 		return new ErrorObjectWithJsonError(response, errorObject);
 	}
 	
@@ -588,21 +590,25 @@ public class JsonRpcBasicServer {
 	 */
 	private ObjectNode createResponseSuccess(String jsonRpc, Object id, JsonNode result) {
 		ObjectNode response = mapper.createObjectNode();
-		response.put(JSONRPC, jsonRpc);
-		if (Integer.class.isInstance(id)) {
-			response.put(ID, Integer.class.cast(id).intValue());
-		} else if (Long.class.isInstance(id)) {
-			response.put(ID, Long.class.cast(id).longValue());
-		} else if (Float.class.isInstance(id)) {
-			response.put(ID, Float.class.cast(id).floatValue());
-		} else if (Double.class.isInstance(id)) {
-			response.put(ID, Double.class.cast(id).doubleValue());
-		} else if (BigDecimal.class.isInstance(id)) {
-			response.put(ID, BigDecimal.class.cast(id));
-		} else {
-			response.put(ID, String.class.cast(id));
+
+		//response.put(JSONRPC, jsonRpc);
+
+		if(result != null && !result.isNull()){
+			if (Integer.class.isInstance(id)) {
+				response.put(ID, Integer.class.cast(id).intValue());
+			} else if (Long.class.isInstance(id)) {
+				response.put(ID, Long.class.cast(id).longValue());
+			} else if (Float.class.isInstance(id)) {
+				response.put(ID, Float.class.cast(id).floatValue());
+			} else if (Double.class.isInstance(id)) {
+				response.put(ID, Double.class.cast(id).doubleValue());
+			} else if (BigDecimal.class.isInstance(id)) {
+				response.put(ID, BigDecimal.class.cast(id));
+			} else {
+				response.put(ID, String.class.cast(id));
+			}
+			response.set(RESULT, result);
 		}
-		response.set(RESULT, result);
 		return response;
 	}
 	
