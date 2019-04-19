@@ -9,6 +9,7 @@ plugins {
     id 'com.github.ben-manes.versions' version '0.13.0'
     id 'osgi'
     id 'maven-publish'
+    id 'maven'
     id 'nebula.nebula-javadoc-jar' version '2.2.2'
     id 'nebula.nebula-source-jar' version '2.2.2'
     id 'com.jfrog.bintray' version '1.7.3'
@@ -45,6 +46,25 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+wrapper {
+    gradleVersion = "3.3"
+    distributionType = Wrapper.DistributionType.ALL
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -115,7 +135,6 @@ jacocoTestReport {
         html.destination "${buildDir}/jacocoHtml"
     }
 }
-
 
 /*publishing {
     publications {
