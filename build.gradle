@@ -16,7 +16,7 @@ plugins {
 
 description = 'This project aims to provide the facility to easily implement JSON-RPC for the java programming language.'
 version = '1.5.3'
-group = 'com.github.briandilley.jsonrpc4j'
+group = 'com.github.jointyx'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -107,7 +107,7 @@ jacocoTestReport {
 }
 
 
-publishing {
+/*publishing {
     publications {
         release(MavenPublication) {
             from components.java
@@ -144,13 +144,13 @@ publishing {
             }
         }
     }
-}
+}*/
 
-bintray {
+/*bintray {
     user = project.hasProperty('user') ? project.property('user') : 'not_set'
     key = project.hasProperty('key') ? project.property('key') : 'not_set'
     dryRun = false
-    publish = true
+    publish = false
     pkg {
         repo = 'maven'
         name = 'com.github.briandilley.jsonrpc4j:jsonrpc4j'
@@ -177,4 +177,4 @@ bintray {
 
 bintrayUpload {
     dependsOn "publishToMavenLocal"
-}
+}*/
